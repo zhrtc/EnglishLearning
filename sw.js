@@ -19,7 +19,10 @@ const CACHE_NAME = 'english-learning-v3';
 
 // All static assets to precache. Updated 2026-06-21.
 const PRECACHE_URLS = [
-  '/', '/index.html', '/core-vocabulary.html',
+  '/', '/index.html',
+  '/core-vocabulary-p1.html', '/core-vocabulary-p2.html',
+  '/core-vocabulary-p3.html', '/core-vocabulary-p4.html',
+  '/core-vocabulary-p5.html', '/core-vocabulary-p6.html',
   '/verbs-a-l.html', '/verbs-m-z.html',
   '/adjectives-adverbs.html', '/nouns-life-scene.html',
   '/nouns-society-function.html',

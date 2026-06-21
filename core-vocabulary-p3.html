@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="same-origin">
+    <title>KET + 中考 词汇备考通 - 第3页/共6页</title>
+    <link rel="stylesheet" href="css/common.css">
+    <script defer src="js/common.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>KET + 中考 词汇速记表</h1>
+    <p style="text-align: center;">📖 第3页 / 共6页</p>
+
+    <!-- 自测控制面板 -->
+    <div class="control-panel">
+        <button class="btn-toggle" id="btn-words"
+            onclick="toggleExam('hide-words', 'btn-words', '单词')">👁️ 隐藏单词</button>
+        <button class="btn-toggle" id="btn-inflections"
+            onclick="toggleExam('hide-inflections', 'btn-inflections', '特殊变形')">👁️ 隐藏变形</button>
+        <button class="btn-toggle" id="btn-meanings"
+            onclick="toggleExam('hide-meanings', 'btn-meanings', '中文释义')">👁️ 隐藏释义</button>
+        <button class="btn-toggle" id="btn-translations"
+            onclick="toggleExampleColumn('btn-translations')">👁️ 隐藏翻译</button>
+        <button class="btn-toggle btn-nav" onclick="window.location.href='core-vocabulary-p2.html'">⬅ P2</button>
+        <button class="btn-toggle btn-nav" onclick="window.location.href='core-vocabulary-p4.html'">P4 ➡</button>
+        <button class="btn-toggle btn-nav" onclick="window.location.href='index.html'">🔙 返回</button>
+    </div>
+
+    <div id="vocabulary-content">
+        <h2>抽象概念与计量 (Abstract & Units)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">单词 & 音标</th>
+                    <th style="width: 20%;">特殊变形</th>
+                    <th style="width: 25%;">中文释义</th>
+                    <th style="width: 40%;">典型例句</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="word">age</span><br><span class="ipa">/eɪdʒ/</span></td>
+                    <td class="inflection">ages (复数)</td>
+                    <td class="meaning">n. 年龄；时代</td>
+                    <td>
+                        <span class="example">What's your age?</span>
+                        <span class="example-cn">你多大了？</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">idea</span><br><span class="ipa">/aɪˈdɪə/</span></td>
+                    <td class="inflection">ideas (复数)</td>
+                    <td class="meaning">n. 主意；想法；见解</td>
+                    <td>
+                        <span class="example">That's a good idea!</span>
+                        <span class="example-cn">好主意！</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">kind</span><br><span class="ipa">/kaɪnd/</span></td>
+                    <td class="inflection">kinds (复数)</td>
+                    <td class="meaning">n. 种类 adj. 善良的</td>
+                    <td>
+                        <span class="example">What kind of music do you like?</span>
+                        <span class="example-cn">你喜欢哪种音乐？</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">way</span><br><span class="ipa">/weɪ/</span></td>
+                    <td class="inflection">ways (复数)</td>
+                    <td class="meaning">n. 道路；方式；方向</td>
+                    <td>
+                        <span class="example">Is this the way to the park?</span>
+                        <span class="example-cn">这是去公园的路吗？</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">bit</span><br><span class="ipa">/bɪt/</span></td>
+                    <td class="inflection">a bit (短语)</td>
+                    <td class="meaning">n. 一点；一小块</td>
+                    <td>
+                        <span class="example">Wait a bit, please.</span>
+                        <span class="example-cn">请等一会儿。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">centimetre</span><br><span class="ipa">/ˈsentɪmiːtə/</span></td>
+                    <td class="inflection">cm (缩写)</td>
+                    <td class="meaning">n. 厘米</td>
+                    <td>
+                        <span class="example">I am 140 centimetres tall.</span>
+                        <span class="example-cn">我140厘米高。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">kilogram</span><br><span class="ipa">/ˈkɪləɡræm/</span></td>
+                    <td class="inflection">kg (缩写)</td>
+                    <td class="meaning">n. 千克；公斤</td>
+                    <td>
+                        <span class="example">I bought two kilograms of apples.</span>
+                        <span class="example-cn">我买了两公斤苹果。</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 第二十三组：心理动词与状态 (Mental Verbs & States) 开始 -->
+        <h2>心理动词与状态 (Mental Verbs)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">单词 & 音标</th>
+                    <th style="width: 20%;">特殊变形</th>
+                    <th style="width: 25%;">中文释义</th>
+                    <th style="width: 40%;">典型例句</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="word">believe</span><br><span class="ipa">/bɪˈliːv/</span></td>
+                    <td class="inflection">believing;<br>believed</td>
+                    <td class="meaning">v. 相信；认为</td>
+                    <td>
+                        <span class="example">I believe you can do it.</span>
+                        <span class="example-cn">我相信你能做到。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">forget</span><br><span class="ipa">/fəˈɡet/</span></td>
+                    <td class="inflection">forgetting;<br>forgot;<br>forgotten</td>
+                    <td class="meaning">v. 忘记</td>
+                    <td>
+                        <span class="example">Don't forget your umbrella.</span>
+                        <span class="example-cn">别忘了带伞。(注意: 双写 t)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">hope</span><br><span class="ipa">/həʊp/</span></td>
+                    <td class="inflection">hoping;<br>hoped</td>
+                    <td class="meaning">v./n. 希望</td>
+                    <td>
+                        <span class="example">I hope to see you soon.</span>
+                        <span class="example-cn">我希望很快见到你。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">mean</span><br><span class="ipa">/miːn/</span></td>
+                    <td class="inflection">meaning;<br>meant /ment/;<br>meant /ment/</td>
+                    <td class="meaning">v. 意思是；意指</td>
+                    <td>
+                        <span class="example">What does this word mean?</span>
+                        <span class="example-cn">这个单词是什么意思？</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">remember</span><br><span class="ipa">/rɪˈmembə(r)/</span></td>
+                    <td class="inflection">remembering;<br>remembered</td>
+                    <td class="meaning">v. 记得；记住</td>
+                    <td>
+                        <span class="example">I don't remember his name.</span>
+                        <span class="example-cn">我不记得他的名字了。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">wait</span><br><span class="ipa">/weɪt/</span></td>
+                    <td class="inflection">waiting;<br>waited</td>
+                    <td class="meaning">v. 等待</td>
+                    <td>
+                        <span class="example">Wait for me!</span>
+                        <span class="example-cn">等我一下！</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">wish</span><br><span class="ipa">/wɪʃ/</span></td>
+                    <td class="inflection">wishes (三单/复)</td>
+                    <td class="meaning">v./n. 希望；祝愿</td>
+                    <td>
+                        <span class="example">Best wishes for you!</span>
+                        <span class="example-cn">给你最好的祝愿。</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- 第二十四组：城镇设施与建筑 (Town & Buildings) 开始 -->
+        <h2>城镇设施与建筑 (Town & Buildings)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">单词 & 音标</th>
+                    <th style="width: 20%;">特殊变形</th>
+                    <th style="width: 25%;">中文释义</th>
+                    <th style="width: 40%;">典型例句</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="word">bank</span><br><span class="ipa">/bæŋk/</span></td>
+                    <td class="inflection">banks (复数)</td>
+                    <td class="meaning">n. 银行；岸；堤</td>
+                    <td>
+                        <span class="example">I need to go to the bank to get some money.</span>
+                        <span class="example-cn">我需要去银行取点钱。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">café</span><br><span class="ipa">/ˈkæfeɪ/</span></td>
+                    <td class="inflection">cafés (复数)</td>
+                    <td class="meaning">n. 咖啡馆；小餐馆</td>
+                    <td>
+                        <span class="example">Let's meet at the café at 3 p.m.</span>
+                        <span class="example-cn">我们下午3点在咖啡馆见。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">cinema</span><br><span class="ipa">/ˈsɪnəmə/</span></td>
+                    <td class="inflection">cinemas (复数)</td>
+                    <td class="meaning">n. 电影院；电影</td>
+                    <td>
+                        <span class="example">What's on at the cinema tonight?</span>
+                        <span class="example-cn">今晚电影院放什么片子？</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">hospital</span><br><span class="ipa">/ˈhɒspɪtl/</span></td>
+                    <td class="inflection">hospitals (复数)</td>
+                    <td class="meaning">n. 医院</td>
+                    <td>
+                        <span class="example">My mother is a doctor in this hospital.</span>
+                        <span class="example-cn">我妈妈是这家医院的医生。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">hotel</span><br><span class="ipa">/həʊˈtel/</span></td>
+                    <td class="inflection">hotels (复数)</td>
+                    <td class="meaning">n. 旅馆；饭店</td>
+                    <td>
+                        <span class="example">We stayed in a hotel near the beach.</span>
+                        <span class="example-cn">我们住在海滩附近的一家旅馆里。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">museum</span><br><span class="ipa">/mjuˈziːəm/</span></td>
+                    <td class="inflection">museums (复数)</td>
+                    <td class="meaning">n. 博物馆</td>
+                    <td>
+                        <span class="example">The history museum is free on Sundays.</span>
+                        <span class="example-cn">历史博物馆周日免费。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">restaurant</span><br><span class="ipa">/ˈrestrɒnt/</span></td>
+                    <td class="inflection">restaurants (复数)</td>
+                    <td class="meaning">n. 餐厅；餐馆</td>
+                    <td>
+                        <span class="example">This Italian restaurant is very famous.</span>
+                        <span class="example-cn">这家意大利餐厅非常有名。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">theatre</span><br><span class="ipa">/ˈθɪətə(r)/</span></td>
+                    <td class="inflection">theatres (复数)</td>
+                    <td class="meaning">n. 剧院；戏院</td>
+                    <td>
+                        <span class="example">I love going to the theatre.</span>
+                        <span class="example-cn">我喜欢去剧院。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">university</span><br><span class="ipa">/ˌjuːnɪˈvɜːsəti/</span></td>
+                    <td class="inflection">universities (复数)</td>
+                    <td class="meaning">n. 大学</td>
+                    <td>
+                        <span class="example">My brother studies at university.</span>
+                        <span class="example-cn">我哥哥在读大学。(注意: y 变 ies)</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 第二十五组：生活日用品 (Everyday Objects) 开始 -->
+        <h2>生活日用品 (Everyday Objects)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">单词 & 音标</th>
+                    <th style="width: 20%;">特殊变形</th>
+                    <th style="width: 25%;">中文释义</th>
+                    <th style="width: 40%;">典型例句</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="word">box</span><br><span class="ipa">/bɒks/</span></td>
+                    <td class="inflection">boxes (复数)</td>
+                    <td class="meaning">n. 盒子；箱子</td>
+                    <td>
+                        <span class="example">Put the toys back in the box.</span>
+                        <span class="example-cn">把玩具放回盒子里。(注意: x 结尾加 es)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">brush</span><br><span class="ipa">/brʌʃ/</span></td>
+                    <td class="inflection">brushes (复/三单);<br>brushed</td>
+                    <td class="meaning">n. 刷子；画笔 v. 刷</td>
+                    <td>
+                        <span class="example">Don't forget to brush your teeth.</span>
+                        <span class="example-cn">别忘了刷牙。(注意: sh 结尾加 es)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">key</span><br><span class="ipa">/kiː/</span></td>
+                    <td class="inflection">keys (复数)</td>
+                    <td class="meaning">n. 钥匙；关键；按键</td>
+                    <td>
+                        <span class="example">I can't find my door keys.</span>
+                        <span class="example-cn">我找不到大门钥匙了。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">mirror</span><br><span class="ipa">/ˈmɪrə(r)/</span></td>
+                    <td class="inflection">mirrors (复数)</td>
+                    <td class="meaning">n. 镜子 v. 反射</td>
+                    <td>
+                        <span class="example">She is looking at herself in the mirror.</span>
+                        <span class="example-cn">她在照镜子。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">soap</span><br><span class="ipa">/səʊp/</span></td>
+                    <td class="inflection"><span class="tag">不可数名词</span></td>
+                    <td class="meaning">n. 肥皂</td>
+                    <td>
+                        <span class="example">Wash your hands with soap.</span>
+                        <span class="example-cn">用肥皂洗手。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">towel</span><br><span class="ipa">/ˈtaʊəl/</span></td>
+                    <td class="inflection">towels (复数)</td>
+                    <td class="meaning">n. 毛巾；手巾</td>
+                    <td>
+                        <span class="example">Can I have a clean towel?</span>
+                        <span class="example-cn">能给我一条干净毛巾吗？</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">umbrella</span><br><span class="ipa">/ʌmˈbrelə/</span></td>
+                    <td class="inflection">umbrellas (复数)</td>
+                    <td class="meaning">n. 雨伞</td>
+                    <td>
+                        <span class="example">It's raining, take an umbrella.</span>
+                        <span class="example-cn">下雨了，带把伞。</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 第二十六组：重要功能副词 (Grammar Adverbs) 开始 -->
+        <h2>语法关键副词 (Grammar Adverbs)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">单词 & 音标</th>
+                    <th style="width: 20%;">用法提示</th>
+                    <th style="width: 25%;">中文释义</th>
+                    <th style="width: 40%;">典型例句</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="word">already</span><br><span class="ipa">/ɔːlˈredi/</span></td>
+                    <td class="inflection">通常用于肯定句</td>
+                    <td class="meaning">adv. 已经</td>
+                    <td>
+                        <span class="example">I have already finished my work.</span>
+                        <span class="example-cn">我已经完成工作了。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">yet</span><br><span class="ipa">/jet/</span></td>
+                    <td class="inflection">用于否定句和疑问句</td>
+                    <td class="meaning">adv. 还；尚；仍然</td>
+                    <td>
+                        <span class="example">Has the bus arrived yet?</span>
+                        <span class="example-cn">公交车到了吗？</span>
+                        <span class="example">I haven't seen the movie yet.</span>
+                        <span class="example-cn">我还没看过这部电影。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">still</span><br><span class="ipa">/stɪl/</span></td>
+                    <td class="inflection">表示动作持续</td>
+                    <td class="meaning">adv. 仍然；依旧 adj. 静止的</td>
+                    <td>
+                        <span class="example">It is still raining outside.</span>
+                        <span class="example-cn">外面仍然在下雨。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">just</span><br><span class="ipa">/dʒʌst/</span></td>
+                    <td class="inflection">紧接着过去分词</td>
+                    <td class="meaning">adv. 刚刚；仅仅；正好</td>
+                    <td>
+                        <span class="example">I have just seen him.</span>
+                        <span class="example-cn">我刚刚见到他。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">almost</span><br><span class="ipa">/ˈɔːlməʊst/</span></td>
+                    <td class="inflection">常置于动词前</td>
+                    <td class="meaning">adv. 几乎；差不多</td>
+                    <td>
+                        <span class="example">I almost forgot your birthday!</span>
+                        <span class="example-cn">我差点忘了你的生日！</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- 第二十七组：自然景观与地理 (Geography & Nature) 开始 -->
+        <h2>自然景观与地理 (Geography & Nature)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">单词 & 音标</th>
+                    <th style="width: 20%;">特殊变形</th>
+                    <th style="width: 25%;">中文释义</th>
+                    <th style="width: 40%;">典型例句</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="word">mountain</span><br><span class="ipa">/ˈmaʊntən/</span></td>
+                    <td class="inflection">mountains (复数)</td>
+                    <td class="meaning">n. 山；山脉</td>
+                    <td>
+                        <span class="example">They are climbing a high mountain.</span>
+                        <span class="example-cn">他们正在爬一座高山。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">river</span><br><span class="ipa">/ˈrɪvə(r)/</span></td>
+                    <td class="inflection">rivers (复数)</td>
+                    <td class="meaning">n. 河；江</td>
+                    <td>
+                        <span class="example">The river flows through the city.</span>
+                        <span class="example-cn">这条河流经这座城市。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">forest</span><br><span class="ipa">/ˈfɒrɪst/</span></td>
+                    <td class="inflection">forests (复数)</td>
+                    <td class="meaning">n. 森林；林区</td>
+                    <td>
+                        <span class="example">There are many wild animals in the forest.</span>
+                        <span class="example-cn">森林里有很多野生动物。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">lake</span><br><span class="ipa">/leɪk/</span></td>
+                    <td class="inflection">lakes (复数)</td>
+                    <td class="meaning">n. 湖；湖泊</td>
+                    <td>
+                        <span class="example">Let's go boating on the lake.</span>
+                        <span class="example-cn">我们去湖上划船吧。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">field</span><br><span class="ipa">/fiːld/</span></td>
+                    <td class="inflection">fields (复数)</td>
+                    <td class="meaning">n. 田地；牧场；领域</td>
+                    <td>
+                        <span class="example">The cows are eating grass in the field.</span>
+                        <span class="example-cn">牛群正在田野里吃草。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">sky</span><br><span class="ipa">/skaɪ/</span></td>
+                    <td class="inflection">skies (复数)</td>
+                    <td class="meaning">n. 天空</td>
+                    <td>
+                        <span class="example">The sky is clear and blue today.</span>
+                        <span class="example-cn">今天天空晴朗蔚蓝。(注意: y 变 ies)</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 第二十八组：量词与容器 (Quantifiers & Containers) 开始 -->
+        <h2>量词与容器 (Quantifiers & Containers)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">单词 & 音标</th>
+                    <th style="width: 20%;">特殊变形</th>
+                    <th style="width: 25%;">中文释义</th>
+                    <th style="width: 40%;">典型例句</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="word">bottle</span><br><span class="ipa">/ˈbɒtl/</span></td>
+                    <td class="inflection">bottles (复数)</td>
+                    <td class="meaning">n. 瓶子</td>
+                    <td>
+                        <span class="example">A bottle of water, please.</span>
+                        <span class="example-cn">请给我一瓶水。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">bowl</span><br><span class="ipa">/bəʊl/</span></td>
+                    <td class="inflection">bowls (复数)</td>
+                    <td class="meaning">n. 碗；盆</td>
+                    <td>
+                        <span class="example">I ate a bowl of rice for lunch.</span>
+                        <span class="example-cn">我午饭吃了一碗米饭。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">cup</span><br><span class="ipa">/kʌp/</span></td>
+                    <td class="inflection">cups (复数)</td>
+                    <td class="meaning">n. 杯子；奖杯</td>
+                    <td>
+                        <span class="example">Would you like a cup of tea?</span>
+                        <span class="example-cn">你想喝杯茶吗？</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">piece</span><br><span class="ipa">/piːs/</span></td>
+                    <td class="inflection">pieces (复数)</td>
+                    <td class="meaning">n. 一片/张/个；零件</td>
+                    <td>
+                        <span class="example">Give me a piece of paper.</span>
+                        <span class="example-cn">给我一张纸。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">slice</span><br><span class="ipa">/slaɪs/</span></td>
+                    <td class="inflection">slices (复数)</td>
+                    <td class="meaning">n. 薄片；部分 v. 切片</td>
+                    <td>
+                        <span class="example">I'd like a slice of cake.</span>
+                        <span class="example-cn">我想要一块蛋糕。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">bag</span><br><span class="ipa">/bæɡ/</span></td>
+                    <td class="inflection">bags (复数)</td>
+                    <td class="meaning">n. 袋子；书包</td>
+                    <td>
+                        <span class="example">He is carrying a heavy bag.</span>
+                        <span class="example-cn">他提着一个沉重的袋子。</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 第二十九组：感知与交流动词辨析 (Perception & Communication) 开始 -->
+        <h2>看、听、说动词辨析 (Verbs of Perception)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">单词 & 音标</th>
+                    <th style="width: 20%;">用法区别</th>
+                    <th style="width: 25%;">中文释义</th>
+                    <th style="width: 40%;">典型例句</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="word">look</span><br><span class="ipa">/lʊk/</span></td>
+                    <td class="inflection">强调“看”的动作<br>(at)</td>
+                    <td class="meaning">v. 看；看起来 n. 看；相貌</td>
+                    <td>
+                        <span class="example">Look at the blackboard.</span>
+                        <span class="example-cn">看黑板。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">see</span><br><span class="ipa">/siː/</span></td>
+                    <td class="inflection">强调“看到”的结果</td>
+                    <td class="meaning">v. 看见；明白；会见</td>
+                    <td>
+                        <span class="example">Can you see the bird in the tree?</span>
+                        <span class="example-cn">你能看见树上的那只鸟吗？</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">watch</span><br><span class="ipa">/wɒtʃ/</span></td>
+                    <td class="inflection">强调“注视”动态事物</td>
+                    <td class="meaning">v. 观看；注视；小心</td>
+                    <td>
+                        <span class="example">I love watching football on TV.</span>
+                        <span class="example-cn">我喜欢看电视上的足球赛。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">listen</span><br><span class="ipa">/ˈlɪsn/</span></td>
+                    <td class="inflection">强调“听”的动作<br>(to)</td>
+                    <td class="meaning">v. 听；倾听</td>
+                    <td>
+                        <span class="example">Listen to the music!</span>
+                        <span class="example-cn">听这音乐！</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">hear</span><br><span class="ipa">/hɪə(r)/</span></td>
+                    <td class="inflection">强调“听到”的结果</td>
+                    <td class="meaning">v. 听到；听说</td>
+                    <td>
+                        <span class="example">I can't hear you clearly.</span>
+                        <span class="example-cn">我听不清你说话。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">shout</span><br><span class="ipa">/ʃaʊt/</span></td>
+                    <td class="inflection">shouting;<br>shouted</td>
+                    <td class="meaning">v./n. 喊叫；大声说</td>
+                    <td>
+                        <span class="example">Don't shout in the library.</span>
+                        <span class="example-cn">不要在图书馆里大喊大叫。</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- 第三十组：情感与性格形容词 (Feelings & Character) 开始 -->
+        <h2>情感与性格形容词 (Feelings & Character)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">单词 & 音标</th>
+                    <th style="width: 20%;">特殊变形</th>
+                    <th style="width: 25%;">中文释义</th>
+                    <th style="width: 40%;">典型例句</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="word">bored</span><br><span class="ipa">/bɔːd/</span></td>
+                    <td class="inflection">形容人(感到无聊)</td>
+                    <td class="meaning">adj. 感到无聊的；厌烦的</td>
+                    <td>
+                        <span class="example">I'm bored. Let's play a game.</span>
+                        <span class="example-cn">我觉得很无聊。我们玩个游戏吧。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">boring</span><br><span class="ipa">/ˈbɔːrɪŋ/</span></td>
+                    <td class="inflection">形容事(令人无聊)</td>
+                    <td class="meaning">adj. 令人无聊的；没趣的</td>
+                    <td>
+                        <span class="example">This movie is very boring.</span>
+                        <span class="example-cn">这部电影非常无聊。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">excited</span><br><span class="ipa">/ɪkˈsaɪtɪd/</span></td>
+                    <td class="inflection">形容人(感到兴奋)</td>
+                    <td class="meaning">adj. 兴奋的；激动的</td>
+                    <td>
+                        <span class="example">The children are excited about the trip.</span>
+                        <span class="example-cn">孩子们对这次旅行感到很兴奋。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">exciting</span><br><span class="ipa">/ɪkˈsaɪtɪŋ/</span></td>
+                    <td class="inflection">形容事(令人兴奋)</td>
+                    <td class="meaning">adj. 令人兴奋的；刺激的</td>
+                    <td>
+                        <span class="example">Football is an exciting sport.</span>
+                        <span class="example-cn">足球是一项令人兴奋的运动。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">clever</span><br><span class="ipa">/ˈklevə(r)/</span></td>
+                    <td class="inflection">cleverer;<br>cleverest</td>
+                    <td class="meaning">adj. 聪明的；机灵的</td>
+                    <td>
+                        <span class="example">What a clever idea!</span>
+                        <span class="example-cn">多聪明的主意啊！</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">friendly</span><br><span class="ipa">/ˈfrendli/</span></td>
+                    <td class="inflection">friendlier;<br>friendliest</td>
+                    <td class="meaning">adj. 友好的；亲切的</td>
+                    <td>
+                        <span class="example">The local people are very friendly.</span>
+                        <span class="example-cn">当地人非常友好。(注意: y 变 i)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">famous</span><br><span class="ipa">/ˈfeɪməs/</span></td>
+                    <td class="inflection">more famous</td>
+                    <td class="meaning">adj. 著名的；出名的</td>
+                    <td>
+                        <span class="example">She is a famous singer.</span>
+                        <span class="example-cn">她是一位著名的歌手。</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 第三十一组：位置、方位与短语 (Location & Phrases) 开始 -->
+        <h2>位置、方位与短语 (Location & Phrases)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 15%;">单词 & 音标</th>
+                    <th style="width: 20%;">固定搭配</th>
+                    <th style="width: 25%;">中文释义</th>
+                    <th style="width: 40%;">典型例句</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="word">front</span><br><span class="ipa">/frʌnt/</span></td>
+                    <td class="inflection">in front of</td>
+                    <td class="meaning">n. 前面；正面 adj. 前面的</td>
+                    <td>
+                        <span class="example">There is a car in front of the house.</span>
+                        <span class="example-cn">房子前面有一辆车。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">back</span><br><span class="ipa">/bæk/</span></td>
+                    <td class="inflection">at the back of</td>
+                    <td class="meaning">n. 后面；背部 adv. 回原处</td>
+                    <td>
+                        <span class="example">Please go back to your seat.</span>
+                        <span class="example-cn">请回到你的座位上。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">side</span><br><span class="ipa">/saɪd/</span></td>
+                    <td class="inflection">side by side</td>
+                    <td class="meaning">n. 侧面；旁边；一方</td>
+                    <td>
+                        <span class="example">The hotel is by the side of the lake.</span>
+                        <span class="example-cn">旅馆在湖边。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">near</span><br><span class="ipa">/nɪə(r)/</span></td>
+                    <td class="inflection">nearer;<br>nearest</td>
+                    <td class="meaning">prep./adj. 在...附近；靠近的</td>
+                    <td>
+                        <span class="example">Do you live near the school?</span>
+                        <span class="example-cn">你住在学校附近吗？</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="word">next</span><br><span class="ipa">/nekst/</span></td>
+                    <td class="inflection">next to</td>
+                    <td class="meaning">adj. 下一个 prep. 紧邻</td>
+                    <td>
+                        <span class="example">Sit next to me.</span>
+                        <span class="example-cn">坐在我旁边。</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 第三十二组：程度副词与限定词 (Degree & Determiners) 开始 -->
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
