@@ -1,0 +1,196 @@
+/* ===== English Learning Website - Common Styles ===== */
+
+/* Base Layout */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    margin: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+h2 {
+    color: #e67e22;
+    border-left: 5px solid #e67e22;
+    padding-left: 10px;
+    margin-top: 15px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    table-layout: fixed;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+th {
+    background-color: #3498db;
+    color: white;
+    position: sticky;
+    top: 0;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Vocabulary Cell Styles */
+.word {
+    font-weight: bold;
+    color: #2980b9;
+    font-size: 1.1em;
+}
+
+.ipa {
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+.inflection {
+    color: #c0392b;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.meaning {
+    color: #27ae60;
+    font-weight: 500;
+}
+
+.example {
+    font-size: 0.85em;
+    color: #555;
+    background: #fffbe6;
+    padding: 5px;
+    border-radius: 3px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.example-cn {
+    color: #888;
+    font-size: 0.9em;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.tag {
+    display: inline-block;
+    background: #eee;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    margin-right: 5px;
+}
+
+/* ---- Control Panel (Self-test Toggle) ---- */
+.control-panel {
+    position: sticky;
+    top: 10px;
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    margin: 20px auto;
+    max-width: 600px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-toggle {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 0.9em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-toggle:hover {
+    background-color: #2980b9;
+}
+
+.btn-toggle.active {
+    background-color: #e67e22;
+}
+
+.btn-toggle.active:hover {
+    background-color: #d35400;
+}
+
+/* Navigation button (gray) */
+.btn-nav {
+    background-color: #95a5a6 !important;
+}
+
+.btn-nav:hover {
+    background-color: #7f8c8d !important;
+}
+
+/* ---- Hide Toggle CSS Rules ---- */
+.hide-inflections th:nth-child(2),
+.hide-inflections td:nth-child(2) {
+    display: none;
+}
+
+.hide-meanings th:nth-child(3),
+.hide-meanings td:nth-child(3) {
+    display: none;
+}
+
+.hide-translations .example-cn {
+    display: none;
+}
+
+/* 4. 隐藏整个例句列 */
+.hide-examples th:nth-child(4),
+.hide-examples td:nth-child(4) {
+    display: none;
+}
+
+/* ---- TTS Clickable Style ---- */
+.tts-clickable {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: #3498db;
+    text-underline-offset: 2px;
+}
+
+.tts-clickable:hover {
+    color: #e67e22;
+    text-decoration-color: #e67e22;
+}

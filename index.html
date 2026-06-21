@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KET + 中考 词汇备考通 - 学习主航站</title>
+    <link rel="stylesheet" href="css/common.css">
+    <script defer src="js/common.js"></script>
+    <style>
+        /* Index-specific styles (overrides for the nav page) */
+        body { margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: 40px auto; padding: 30px; }
+        h1 { border-bottom: 2px solid #3498db; padding-bottom: 15px; margin-top: 0; }
+        .intro { text-align: center; color: #7f8c8d; font-size: 1.05em; line-height: 1.6; margin-bottom: 30px; }
+        .stats { background: #eef7fc; border-left: 4px solid #3498db; padding: 12px 20px; border-radius: 4px; margin-bottom: 30px; font-weight: 500; color: #2c3e50; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: #fff; border: 1px solid #e1e8ed; border-radius: 8px; padding: 20px; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.02); cursor: pointer; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-color: #3498db; }
+        .card-title { font-size: 1.2em; font-weight: bold; color: #2980b9; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .card-desc { font-size: 0.9em; color: #555; line-height: 1.5; margin-bottom: 15px; flex-grow: 1; }
+        .card-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f0f0f0; padding-top: 10px; font-size: 0.85em; }
+        .card-tag { background: #e8f4fd; color: #3498db; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+        .card-count { color: #e67e22; font-weight: bold; }
+        .core-card { border-left: 5px solid #e67e22; }
+        .core-card .word { color: #e67e22; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>KET + 中考 词汇备考通</h1>
+    <p style="text-align: center; color: #7f8c8d; margin-bottom: 20px;">剑桥 A2 级别与九年义务教育中考考纲全覆盖复习方案</p>
+    
+    <div class="stats-bar" style="background: #eef6f9; padding: 15px; border-radius: 6px; margin-bottom: 25px; text-align: center; color: #34495e; font-size: 0.95em;">
+        🔍 <strong>大纲统计提示：</strong> 本套词表总计收录 <b>1,091 个</b> 核心高频词汇与语法功能词，已剔除重复项并提供全套音标与双语例句。
+    </div>
+
+    <h2 style="color:#2c3e50; margin: 30px 0 10px; border-bottom:2px solid #3498db; padding-bottom:8px;">📖 词汇分类表（已建）</h2>
+    <!-- 词表模块网格 -->
+    <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+
+        <div class="card" onclick="window.location.href='core-vocabulary.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">📌 原版核心词表</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">您最初整合的分类词表。</p>
+            <div class="card-meta"><span class="card-tag" style="background: #fdf2e9; color: #e67e22;">原版核心</span><span class="card-count">约 480 词</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='verbs-a-l.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">📝 动词 A-L</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">大纲剩余核心动词 A-L。</p>
+            <div class="card-meta"><span class="card-tag">动词分册</span><span class="card-count">154 词</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='verbs-m-z.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">📝 动词 M-Z</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">大纲剩余核心动词 M-Z。</p>
+            <div class="card-meta"><span class="card-tag">动词分册</span><span class="card-count">182 词</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='adjectives-adverbs.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">🎨 形容词与副词</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">修饰词分册。</p>
+            <div class="card-meta"><span class="card-tag" style="background: #e8f8f5; color: #2ecc71;">修饰词</span><span class="card-count">160 词</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='nouns-life-scene.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">🍎 生活与场景名词</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">场景分类名词。</p>
+            <div class="card-meta"><span class="card-tag" style="background: #fef9e7; color: #f1c40f;">名词分册</span><span class="card-count">115 词</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='nouns-society-function.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">🌐 社会与功能词</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">完结分册。</p>
+            <div class="card-meta"><span class="card-tag" style="background: #f4ecf7; color: #9b59b6;">完结分册</span><span class="card-count">120 词</span></div>
+        </div>
+    </div>
+
+    <h2 style="color:#2c3e50; margin: 30px 0 10px; border-bottom:2px solid #e67e22; padding-bottom:8px;">📚 语法与考点专项（NEW）</h2>
+    <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
+
+        <div class="card" onclick="window.location.href='grammar/tenses.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">📅 八大时态详解</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">全部 8 大时态结构·标志词·肯否疑·不规则动词·用法对比。</p>
+            <div class="card-meta"><span class="card-tag" style="background:#ffeaa7; color:#d68910;">时态</span><span class="card-count">8 大时态</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='grammar/passive-voice.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">🔁 被动语态</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">各时态被动结构·主动变被动步骤·特殊情况·主动表被动。</p>
+            <div class="card-meta"><span class="card-tag" style="background:#dfe6e9; color:#636e72;">语态</span><span class="card-count">核心考点</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='grammar/non-finite-verbs.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">🔧 非谓语动词</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">不定式·动名词·分词·7组to do/doing辨析(remember/stop/try等)。</p>
+            <div class="card-meta"><span class="card-tag" style="background:#81ecec; color:#00b894;">非谓语</span><span class="card-count">🔥 高频</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='grammar/clauses.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">📚 三大从句</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">宾语从句·定语从句·状语从句·连接词·语序·时态呼应·主将从现。</p>
+            <div class="card-meta"><span class="card-tag" style="background:#a29bfe; color:#6c5ce7;">从句</span><span class="card-count">🔥 必考</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='grammar/modal-verbs.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">⚡ 情态动词 & 虚拟</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">can/must/may 核心用法·推测·must have done·if虚拟·wish从句。</p>
+            <div class="card-meta"><span class="card-tag" style="background:#fab1a0; color:#d63031;">情态</span><span class="card-count">11 个</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='grammar/sentence-patterns.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">🔨 特殊句型与句法</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">There be·感叹句·反意疑问·too...to·not...until·had better等。</p>
+            <div class="card-meta"><span class="card-tag" style="background:#fdcb6e; color:#d63031;">句法</span><span class="card-count">20+ 句型</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='grammar/verb-collocations.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">🔗 动词固定搭配</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">V+to do / V+doing / V+sb+to do / 感官使役省to / 短语动词大全。</p>
+            <div class="card-meta"><span class="card-tag" style="background:#55efc4; color:#00b894;">搭配</span><span class="card-count">🔥 60+条</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='grammar/prepositions.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">📍 介词词组与辨析</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">in/on/at时间地点·across/through/past·besides/except·adj+介词固定搭配。</p>
+            <div class="card-meta"><span class="card-tag" style="background:#74b9ff; color:#0984e3;">介词</span><span class="card-count">🔥 30+组</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='grammar/confusable-words.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">🔀 易混词辨析大全</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">borrow/lend·bring/take·say/speak/spend/take/cost·a few/little·other/another·ago/before等。</p>
+            <div class="card-meta"><span class="card-tag" style="background:#e17055; color:#fff;">易混</span><span class="card-count">60+ 组</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='grammar/subject-verb-agreement.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">👥 主谓一致</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">语法一致·意义一致·就近原则·each/every/either/neither·a number of/the number of。</p>
+            <div class="card-meta"><span class="card-tag" style="background:#dfe6e9; color:#636e72;">语法</span><span class="card-count">🔥 常考</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='grammar/direct-indirect-speech.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">💬 直接引语⇔间接引语</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">时态回推·人称变化·时间/地点词变化·祈使句疑问句转换·经典例句。</p>
+            <div class="card-meta"><span class="card-tag" style="background:#ffeaa7; color:#d68910;">引语</span><span class="card-count">必考技能</span></div>
+        </div>
+        <div class="card" onclick="window.location.href='grammar/writing-connectors.html'" style="cursor: pointer;">
+            <h2 style="color: #2c3e50; margin-top: 0;">✏️ 写作连接词与过渡</h2>
+            <p style="font-size: 0.9em; color: #7f8c8d;">序列·递进·转折·因果·总结·举例·写作高分必备词汇大全。</p>
+            <div class="card-meta"><span class="card-tag" style="background:#55efc4; color:#00b894;">写作</span><span class="card-count">📖 提分必备</span></div>
+        </div>
+    </div>
+
+    <p style="text-align:center; color:#b2bec3; font-size:0.85em; margin-top: 20px;">📢 更多专题持续更新中...</p>
+</div>
+
+</body>
+</html>
