@@ -1,10 +1,67 @@
 /**
  * English Learning Website - Common JavaScript
  * Features:
- *   1. Column toggle for self-test (hide inflections/meanings/translations)
- *   2. Scroll position auto-save (every 3 seconds) and restore on page load
- *   3. TTS (Text-To-Speech) for clickable English words and example sentences
+ *   1. Service Worker registration (offline support)
+ *   2. Column toggle for self-test (hide inflections/meanings/translations)
+ *   3. Scroll position auto-save (every 3 seconds) and restore on page load
+ *   4. TTS (Text-To-Speech) for clickable English words and example sentences
  */
+
+// ======================== 0. Service Worker (Offline Support) ========================
+
+// SW version - increment this when publishing updates to force re-caching
+var _SW_VERSION = '2026-06-21-04';
+
+(function registerSW() {
+    if ('serviceWorker' in navigator) {
+        // Determine SW path based on page location
+        var swPath = window.location.pathname.indexOf('/grammar/') === 0
+            ? '../sw.js'
+            : 'sw.js';
+
+        // Add version query param for cache busting
+        navigator.serviceWorker.register(swPath + '?v=' + _SW_VERSION).then(function (reg) {
+            // Check if there's a new version waiting
+            if (reg.waiting) {
+                // New SW is waiting — tell it to take over
+                reg.waiting.postMessage({ action: 'skipWaiting' });
+            }
+        }).catch(function (err) {
+            // SW registration failed — offline support won't work but page still functions
+            console.warn('SW registration failed:', err);
+        });
+
+        // Listen for messages from the Service Worker
+        navigator.serviceWorker.addEventListener('message', function (event) {
+            if (event.data && event.data.type === 'CONTENT_UPDATED') {
+                // Content was updated in the background — reload to show new version
+                window.location.reload();
+            }
+        });
+
+        // Detect network status changes for UI feedback
+        function updateOnlineStatus() {
+            var indicator = document.getElementById('tts-status');
+            if (navigator.onLine) {
+                document.body.classList.remove('offline');
+                // The TTS indicator will be managed by initTTS() below
+            } else {
+                document.body.classList.add('offline');
+                if (indicator) {
+                    indicator.textContent = '📵';
+                    indicator.title = '离线模式';
+                    indicator.style.backgroundColor = '#fdf2e9';
+                    indicator.style.border = '2px solid #e74c3c';
+                }
+            }
+        }
+
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        // Initial check
+        updateOnlineStatus();
+    }
+})();
 
 // ======================== 1. Column Toggle (Self-Test) ========================
 
@@ -97,7 +154,18 @@ function toggleExampleColumn(buttonId) {
 (function initTTS() {
     var ttsMode = 'none'; // 'native' | 'google' | 'none'
 
-    // --- UI: Floating indicator ---
+    // Save/load TTS preference site-wide (same across ALL pages)
+    var PREF_KEY = 'ttsPreference';
+
+    function loadPreference() {
+        return localStorage.getItem(PREF_KEY);
+    }
+
+    function savePreference(mode) {
+        localStorage.setItem(PREF_KEY, mode);
+    }
+
+    // --- UI: Floating indicator (clickable to toggle mode) ---
     function showTTSIndicator(mode) {
         var el = document.getElementById('tts-status');
         if (el) el.parentNode.removeChild(el);
@@ -106,24 +174,51 @@ function toggleExampleColumn(buttonId) {
         el.id = 'tts-status';
         el.style.cssText = 'position:fixed;bottom:12px;right:12px;z-index:9999;' +
             'width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;' +
-            'font-size:18px;cursor:default;box-shadow:0 2px 8px rgba(0,0,0,0.15);';
+            'font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.15);' +
+            'transition:transform 0.2s;';
 
         if (mode === 'native') {
             el.textContent = '🔊';
             el.style.backgroundColor = '#e8f8f5';
             el.style.border = '2px solid #27ae60';
-            el.title = 'TTS 就绪 - 点击朗读';
+            el.title = '点击切换TTS模式（当前: 系统语音）';
         } else if (mode === 'google') {
             el.textContent = '🔊';
             el.style.backgroundColor = '#fff3cd';
             el.style.border = '2px solid #f39c12';
-            el.title = '在线TTS - 点击朗读（需要网络）';
+            el.title = '点击切换TTS模式（当前: 在线TTS）';
         } else {
             el.textContent = '🔇';
             el.style.backgroundColor = '#fdf2e9';
             el.style.border = '2px solid #e67e22';
             el.title = 'TTS 不可用';
         }
+
+        // Hover effect
+        el.addEventListener('mouseenter', function () {
+            this.style.transform = 'scale(1.15)';
+        });
+        el.addEventListener('mouseleave', function () {
+            this.style.transform = 'scale(1)';
+        });
+
+        // Click to toggle mode: native ↔ google (persist across pages)
+        el.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (ttsMode === 'native') {
+                ttsMode = 'google';
+                savePreference('google');
+                showTTSIndicator('google');
+            } else if (ttsMode === 'google') {
+                // Only switch back if native is available
+                if ('speechSynthesis' in window) {
+                    ttsMode = 'native';
+                    savePreference('native');
+                    showTTSIndicator('native');
+                }
+            }
+        });
+
         document.body.appendChild(el);
         if (!window._ttsIndicatorShown) {
             window._ttsIndicatorShown = true;
@@ -131,101 +226,167 @@ function toggleExampleColumn(buttonId) {
         }
     }
 
-    // --- Check native TTS availability ---
-    function checkNativeAndInit() {
+    // --- TTS mode detection ---
+    // On Android Chrome, speechSynthesis exists but voices may arrive late.
+    // We try native by default and only fallback to Google if sendUtterance() fails at runtime.
+    // Voice loading detection is unreliable on Android, so we just attempt both.
+    function detectTTSMode() {
+        // Check for saved user preference first
+        var saved = loadPreference();
+        if (saved === 'google') {
+            ttsMode = 'google';
+            showTTSIndicator('google');
+            return;
+        }
+
+        // No saved preference (or saved as 'native'): try native speechSynthesis
         if ('speechSynthesis' in window) {
+            ttsMode = 'native';
             var voices = window.speechSynthesis.getVoices();
             if (voices.length > 0) {
-                ttsMode = 'native';
                 showTTSIndicator('native');
-                return true;
+                return;
             }
-        }
-        return false;
-    }
-
-    // Try native immediately; if voices load async, wait for event
-    if (!checkNativeAndInit()) {
-        if ('speechSynthesis' in window) {
             window.speechSynthesis.onvoiceschanged = function () {
-                window.speechSynthesis.onvoiceschanged = null;
-                if (checkNativeAndInit()) return;
-                // Still no voices after event → fallback to Google
-                ttsMode = 'google';
-                showTTSIndicator('google');
-            };
-            // Timeout: if after 2s no voices, fallback to Google
-            setTimeout(function () {
-                if (ttsMode !== 'native') {
-                    ttsMode = 'google';
-                    showTTSIndicator('google');
+                var v = window.speechSynthesis.getVoices();
+                if (v.length > 0) {
+                    window.speechSynthesis.onvoiceschanged = null;
+                    showTTSIndicator('native');
                 }
-            }, 2000);
+            };
+            showTTSIndicator('native');
         } else {
-            // No speechSynthesis API at all
             ttsMode = 'google';
             showTTSIndicator('google');
         }
     }
+    detectTTSMode();
 
-    // --- Elements to make clickable ---
-    // Includes mixed-content elements (.rule, .mini-table td) so English text inside them can be clicked.
-    // The .tts-clickable visual style is only added if the element CONTAINS English text.
-    var ttsElements = document.querySelectorAll('.word, .inflection, .example, .rule, .mini-table td, .compare-col .ex, .formula-box');
+    // Keep a reference to the current Google Audio element so we can stop it
+    var _currentGoogleAudio = null;
 
-    // --- Speak function: dispatches to native or Google ---
+    // --- Speak function: respects user's TTS mode selection ---
     function speakText(text) {
         if (!text) return;
 
-        if (ttsMode === 'native') {
-            if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
-
-            // Edge workaround: first speak may be ignored
-            if (!window._edgeWarmedUp) {
-                window._edgeWarmedUp = true;
-                var dummy = new SpeechSynthesisUtterance(' ');
-                dummy.volume = 0;
-                window.speechSynthesis.speak(dummy);
-                setTimeout(function () {
-                    window.speechSynthesis.cancel();
-                    var u = new SpeechSynthesisUtterance(text);
-                    u.lang = 'en-US';
-                    u.rate = 0.9;
-                    window.speechSynthesis.speak(u);
-                }, 50);
-                return;
+        if (ttsMode === 'native' || ttsMode === 'none') {
+            // Stop any running Google audio first
+            if (_currentGoogleAudio) {
+                _currentGoogleAudio.pause();
+                _currentGoogleAudio.src = '';
+                _currentGoogleAudio = null;
             }
 
-            var utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            utterance.rate = 0.9;
-            utterance.onerror = function () { showTTSIndicator('google'); ttsMode = 'google'; };
-            window.speechSynthesis.speak(utterance);
+            if ('speechSynthesis' in window) {
+                if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+
+                if (!window._edgeWarmedUp) {
+                    window._edgeWarmedUp = true;
+                    var dummy = new SpeechSynthesisUtterance(' ');
+                    dummy.volume = 0;
+                    window.speechSynthesis.speak(dummy);
+                    setTimeout(function () {
+                        window.speechSynthesis.cancel();
+                        var u = new SpeechSynthesisUtterance(text);
+                        u.lang = 'en-US';
+                        u.rate = 0.9;
+                        window.speechSynthesis.speak(u);
+                    }, 50);
+                    return;
+                }
+
+                var utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
         } else if (ttsMode === 'google') {
-            // Google Translate TTS: works on ALL platforms including Android
+            // Stop previous Google audio if still playing
+            if (_currentGoogleAudio) {
+                _currentGoogleAudio.pause();
+                _currentGoogleAudio.src = '';
+                _currentGoogleAudio = null;
+            }
+
+            // Also cancel native speech if it was playing
+            if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+            }
+
             var audio = new Audio();
             audio.src = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' +
                 encodeURIComponent(text) + '&tl=en&client=tw-ob';
+            _currentGoogleAudio = audio;
             audio.play().catch(function () {
-                // If autoplay blocked, show a hint
-                showTTSIndicator('none');
+                _currentGoogleAudio = null;
             });
         }
     }
 
+    // --- Elements to make clickable ---
+    // Added .meaning so Chinese definitions can also be read aloud.
+    var ttsElements = document.querySelectorAll('.word, .inflection, .meaning, .example, .rule, .mini-table td, .compare-col .ex, .formula-box');
+
+    // Helper: prepare text for TTS.
+    // For English: extract only English portion (remove Chinese, IPA).
+    // For Chinese: keep as-is but clean up (remove IPA, replace "/" with space).
+    // In all cases: replace "/" with a space so it creates a pause instead of reading "slash".
+    // Helper: prepare text for TTS.
+    function prepareForTTS(text) {
+        // Replace "/" with ", " (comma+space) to create a natural TTS pause
+        // e.g. "can/could/may" → "can, could, may"
+        // This avoids the TTS reading "/" as "slash"
+        text = text.replace(/\//g, ', ');
+        
+        // Remove IPA notation: /.../ (those that are IPA, now they'll be ", " + content + ", ")
+        // After the /→, replacement, IPA like "/ˈmænɪdʒ/" becomes ", ˈmænɪdʒ, "
+        // These leftover IPA artifacts need cleanup
+        text = text.replace(/,\s*[ˈˌ]?[a-zA-Zəæɑɔɪʊʌɛθðŋʃʒɡ]+[əa-zA-Zˈˌ]*\s*,/g, '');
+        
+        // Check if text contains Chinese characters
+        var hasChinese = /[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/.test(text);
+
+        if (hasChinese) {
+            // For Chinese-dominant text (.meaning), keep Chinese.
+            // Clean up extra spaces and commas
+            text = text.replace(/,+/g, ',').replace(/\s+/g, ' ').trim();
+            text = text.replace(/,\s*,/g, ',').replace(/^,+|,+$/g, '').trim();
+        } else {
+            // For English-dominant text, remove Chinese characters
+            text = text.replace(/[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/g, '');
+            text = text.replace(/[，。！？、；：“”【】（）《》——…·\u3000-\u303f\uff00-\uffef]/g, '');
+            text = text.replace(/,+/g, ',').replace(/\s+/g, ' ').trim();
+            text = text.replace(/,\s*,/g, ',').replace(/^,+|,+$/g, '').trim();
+        }
+        return text;
+    }
+
     ttsElements.forEach(function (el) {
-        // Only show the dotted-underline style if element contains English letters
-        var text = el.textContent || '';
-        if (/[a-zA-Z]/.test(text)) {
+        var fullText = el.textContent || '';
+        var prepared = prepareForTTS(fullText);
+
+        // Show clickable style if there's anything to read (English OR Chinese)
+        if (prepared.length > 0) {
             el.classList.add('tts-clickable');
         }
-        // Always attach click handler (clicking a "纯中文" element does nothing harm but also nothing useful)
-        // Only speak if text actually has English content
+
         el.addEventListener('click', function (e) {
             e.stopPropagation();
-            var txt = this.textContent.trim();
-            if (/[a-zA-Z]/.test(txt)) {
-                speakText(txt);
+            var clickedText = this.textContent.trim();
+            var toSpeak = prepareForTTS(clickedText);
+            if (toSpeak.length > 0) {
+                // Detect if text is Chinese → set lang to zh-CN
+                if (/[\u4e00-\u9fff]/.test(toSpeak)) {
+                    // Use native TTS with Chinese if available
+                    if ('speechSynthesis' in window) {
+                        var u = new SpeechSynthesisUtterance(toSpeak);
+                        u.lang = 'zh-CN';
+                        u.rate = 0.85;
+                        window.speechSynthesis.speak(u);
+                        return;
+                    }
+                }
+                speakText(toSpeak);
             }
         });
     });
