@@ -17,7 +17,9 @@ var _SW_VERSION = '2026-06-21-05';
         // Determine SW path based on page location
         var swPath = window.location.pathname.indexOf('/grammar/') === 0
             ? '../sw.js'
-            : 'sw.js';
+            : (window.location.pathname.indexOf('/vocabulary/') === 0
+                ? '../sw.js'
+                : 'sw.js');
 
         // Add version query param for cache busting
         navigator.serviceWorker.register(swPath + '?v=' + _SW_VERSION).then(function (reg) {

@@ -20,12 +20,12 @@ const CACHE_NAME = 'english-learning-v3';
 // All static assets to precache. Updated 2026-06-21.
 const PRECACHE_URLS = [
   '/', '/index.html',
-  '/core-vocabulary-p1.html', '/core-vocabulary-p2.html',
-  '/core-vocabulary-p3.html', '/core-vocabulary-p4.html',
-  '/core-vocabulary-p5.html', '/core-vocabulary-p6.html',
-  '/verbs-a-l.html', '/verbs-m-z.html',
-  '/adjectives-adverbs.html', '/nouns-life-scene.html',
-  '/nouns-society-function.html',
+  '/vocabulary/core-vocabulary-p1.html', '/vocabulary/core-vocabulary-p2.html',
+  '/vocabulary/core-vocabulary-p3.html', '/vocabulary/core-vocabulary-p4.html',
+  '/vocabulary/core-vocabulary-p5.html', '/vocabulary/core-vocabulary-p6.html',
+  '/vocabulary/verbs-a-l.html', '/vocabulary/verbs-m-z.html',
+  '/vocabulary/adjectives-adverbs.html', '/vocabulary/nouns-life-scene.html',
+  '/vocabulary/nouns-society-function.html',
   '/css/common.css', '/css/grammar.css',
   '/js/common.js',
   '/grammar/tenses.html', '/grammar/passive-voice.html',
@@ -34,7 +34,10 @@ const PRECACHE_URLS = [
   '/grammar/prepositions.html', '/grammar/confusable-words.html',
   '/grammar/subject-verb-agreement.html',
   '/grammar/direct-indirect-speech.html',
-  '/grammar/verb-collocations.html', '/grammar/writing-connectors.html'
+  '/grammar/verb-collocations.html', '/grammar/writing-connectors.html',
+  '/grammar/articles.html', '/grammar/comparatives.html', '/grammar/pronouns.html',
+  '/grammar/numerals.html', '/grammar/questions.html', '/grammar/word-formation.html',
+  '/grammar/conjunctions.html'
 ];
 
 // ======================== Install ========================
