@@ -10,7 +10,7 @@
 // ======================== 0. Service Worker (Offline Support) ========================
 
 // SW version - increment this when publishing updates to force re-caching
-var _SW_VERSION = '2026-06-21-04';
+var _SW_VERSION = '2026-06-21-05';
 
 (function registerSW() {
     if ('serviceWorker' in navigator) {
@@ -151,6 +151,16 @@ function toggleExampleColumn(buttonId) {
 // Strategy: Use native Web Speech API when available.
 // Fallback: Use Google Translate TTS audio URL (works on all browsers including Android).
 
+// Dynamically inject referrer policy meta tag at runtime as a safety net.
+(function ensureReferrerPolicy() {
+    if (!document.querySelector('meta[name="referrer"]')) {
+        var meta = document.createElement('meta');
+        meta.name = 'referrer';
+        meta.content = 'same-origin';
+        document.head.appendChild(meta);
+    }
+})();
+
 (function initTTS() {
     var ttsMode = 'none'; // 'native' | 'google' | 'none'
 
@@ -265,9 +275,51 @@ function toggleExampleColumn(buttonId) {
     // Keep a reference to the current Google Audio element so we can stop it
     var _currentGoogleAudio = null;
 
+    // Global reference to prevent garbage collection of speech objects on Android Chrome
+    window._activeUtterance = null;
+
+    // Helper: Find appropriate speech engine voice by language code
+    function findVoice(langCode) {
+        if (!('speechSynthesis' in window)) return null;
+        var voices = window.speechSynthesis.getVoices();
+
+        // Exact match (normalizing Android underscores like en_US to en-US)
+        var match = voices.find(function (v) {
+            return v.lang.replace('_', '-').toLowerCase() === langCode.toLowerCase();
+        });
+        // General fallback match (e.g. starts with "en")
+        if (!match) {
+            match = voices.find(function (v) {
+                return v.lang.toLowerCase().indexOf(langCode.split('-')[0].toLowerCase()) === 0;
+            });
+        }
+        return match;
+    }
+
+    // Helper: fall back to Google Online TTS (called on native error)
+    function fallbackToGoogle(text, lang) {
+        if (_currentGoogleAudio) {
+            _currentGoogleAudio.pause();
+            _currentGoogleAudio.src = '';
+            _currentGoogleAudio = null;
+        }
+
+        var googleLang = lang.startsWith('zh') ? 'zh-CN' : 'en';
+        var audio = new Audio();
+        audio.referrerPolicy = 'no-referrer';
+        audio.src = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' +
+            encodeURIComponent(text) + '&tl=' + googleLang + '&client=tw-ob';
+
+        _currentGoogleAudio = audio;
+        audio.play().catch(function () {
+            _currentGoogleAudio = null;
+        });
+    }
+
     // --- Speak function: respects user's TTS mode selection ---
-    function speakText(text) {
+    function speakText(text, lang) {
         if (!text) return;
+        lang = lang || 'en-US';
 
         if (ttsMode === 'native' || ttsMode === 'none') {
             // Stop any running Google audio first
@@ -280,25 +332,35 @@ function toggleExampleColumn(buttonId) {
             if ('speechSynthesis' in window) {
                 if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
 
-                if (!window._edgeWarmedUp) {
-                    window._edgeWarmedUp = true;
-                    var dummy = new SpeechSynthesisUtterance(' ');
-                    dummy.volume = 0;
-                    window.speechSynthesis.speak(dummy);
-                    setTimeout(function () {
-                        window.speechSynthesis.cancel();
-                        var u = new SpeechSynthesisUtterance(text);
-                        u.lang = 'en-US';
-                        u.rate = 0.9;
-                        window.speechSynthesis.speak(u);
-                    }, 50);
-                    return;
-                }
+                try {
+                    var utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = lang;
+                    utterance.rate = lang.startsWith('zh') ? 0.85 : 0.9;
 
-                var utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US';
-                utterance.rate = 0.9;
-                window.speechSynthesis.speak(utterance);
+                    // Match best available voice profile
+                    var voice = findVoice(lang);
+                    if (voice) {
+                        utterance.voice = voice;
+                    }
+
+                    // Chromium Garbage Collection workaround (essential for Android Chrome)
+                    window._activeUtterance = utterance;
+
+                    // Trigger fallback on actual failures, but NOT on 'interrupted' or 'canceled'
+                    // which are benign (user clicked something else, or new utterance started).
+                    utterance.onerror = function (event) {
+                        if (event.error === 'interrupted' || event.error === 'canceled') {
+                            return;
+                        }
+                        console.warn('Native speech failed, trying online fallback...', event.error);
+                        fallbackToGoogle(text, lang);
+                    };
+
+                    window.speechSynthesis.speak(utterance);
+                } catch (e) {
+                    console.warn('Native speech error, falling back:', e);
+                    fallbackToGoogle(text, lang);
+                }
             }
         } else if (ttsMode === 'google') {
             // Stop previous Google audio if still playing
@@ -313,13 +375,7 @@ function toggleExampleColumn(buttonId) {
                 window.speechSynthesis.cancel();
             }
 
-            var audio = new Audio();
-            audio.src = 'https://translate.google.com/translate_tts?ie=UTF-8&q=' +
-                encodeURIComponent(text) + '&tl=en&client=tw-ob';
-            _currentGoogleAudio = audio;
-            audio.play().catch(function () {
-                _currentGoogleAudio = null;
-            });
+            fallbackToGoogle(text, lang);
         }
     }
 
@@ -328,31 +384,31 @@ function toggleExampleColumn(buttonId) {
     var ttsElements = document.querySelectorAll('.word, .inflection, .meaning, .example, .rule, .mini-table td, .compare-col .ex, .formula-box');
 
     // Helper: prepare text for TTS.
-    // For English: extract only English portion (remove Chinese, IPA).
-    // For Chinese: keep as-is but clean up (remove IPA, replace "/" with space).
-    // In all cases: replace "/" with a space so it creates a pause instead of reading "slash".
-    // Helper: prepare text for TTS.
+    // Steps:
+    //   1) Remove actual IPA notation: content between slashes containing stress markers (ˈˌ) or phonetic characters.
+    //   2) Replace remaining slashes with ". " (period = longer TTS pause ≈ 0.5s).
+    //   3) For English-only text, strip Chinese characters/punctuation.
+    //   4) Clean up extra whitespace/commas.
     function prepareForTTS(text) {
-        // Replace "/" with ", " (comma+space) to create a natural TTS pause
-        // e.g. "can/could/may" → "can, could, may"
-        // This avoids the TTS reading "/" as "slash"
-        text = text.replace(/\//g, ', ');
-        
-        // Remove IPA notation: /.../ (those that are IPA, now they'll be ", " + content + ", ")
-        // After the /→, replacement, IPA like "/ˈmænɪdʒ/" becomes ", ˈmænɪdʒ, "
-        // These leftover IPA artifacts need cleanup
-        text = text.replace(/,\s*[ˈˌ]?[a-zA-Zəæɑɔɪʊʌɛθðŋʃʒɡ]+[əa-zA-Zˈˌ]*\s*,/g, '');
-        
-        // Check if text contains Chinese characters
+        // Step 1 — Remove IPA notation: pattern " word /ipa/; " or " word /ipa/"
+        // IPA is a word between slashes preceded by a space and followed by punctuation or end-of-string.
+        // This correctly preserves separator slashes like "am/is/are" (no spaces around them).
+        text = text.replace(/\s+\/[ˈˌəæɑɔɪʊʌɛθðŋʃʒɡa-zA-Z:]+\s*[;,\)\]\.]/g, '');
+        text = text.replace(/\s+\/[ˈˌəæɑɔɪʊʌɛθðŋʃʒɡa-zA-Z:]+$/g, '');
+
+        // Step 2 — Replace remaining "/" (non-IPA separators like "can/could/may") 
+        // with ". " (period = sentence-ending pause ≈ 0.5s)
+        text = text.replace(/\//g, '. ');
+
+        // Step 3 — Detect if text contains Chinese
         var hasChinese = /[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/.test(text);
 
         if (hasChinese) {
-            // For Chinese-dominant text (.meaning), keep Chinese.
-            // Clean up extra spaces and commas
+            // Clean up extra spaces and punctuation
             text = text.replace(/,+/g, ',').replace(/\s+/g, ' ').trim();
             text = text.replace(/,\s*,/g, ',').replace(/^,+|,+$/g, '').trim();
         } else {
-            // For English-dominant text, remove Chinese characters
+            // For English-only: strip Chinese characters and punctuation
             text = text.replace(/[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/g, '');
             text = text.replace(/[，。！？、；：“”【】（）《》——…·\u3000-\u303f\uff00-\uffef]/g, '');
             text = text.replace(/,+/g, ',').replace(/\s+/g, ' ').trim();
@@ -375,18 +431,9 @@ function toggleExampleColumn(buttonId) {
             var clickedText = this.textContent.trim();
             var toSpeak = prepareForTTS(clickedText);
             if (toSpeak.length > 0) {
-                // Detect if text is Chinese → set lang to zh-CN
-                if (/[\u4e00-\u9fff]/.test(toSpeak)) {
-                    // Use native TTS with Chinese if available
-                    if ('speechSynthesis' in window) {
-                        var u = new SpeechSynthesisUtterance(toSpeak);
-                        u.lang = 'zh-CN';
-                        u.rate = 0.85;
-                        window.speechSynthesis.speak(u);
-                        return;
-                    }
-                }
-                speakText(toSpeak);
+                // Detect if text contains Chinese → use zh-CN, otherwise en-US
+                var targetLang = /[\u4e00-\u9fff]/.test(toSpeak) ? 'zh-CN' : 'en-US';
+                speakText(toSpeak, targetLang);
             }
         });
     });

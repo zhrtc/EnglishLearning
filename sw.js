@@ -69,55 +69,59 @@ self.addEventListener('activate', function (event) {
 self.addEventListener('fetch', function (event) {
   if (event.request.method !== 'GET') return;
   if (!event.request.url.startsWith('http')) return;
+  
+  // Directly bypass Google TTS so it doesn't pass through the Service Worker
   if (event.request.url.includes('translate.google.com')) return;
 
   event.respondWith(
     caches.open(CACHE_NAME).then(function (cache) {
       return cache.match(event.request).then(function (cachedResponse) {
-        // Background: fetch from network to update cache
-        var fetchPromise = fetch(event.request).then(function (networkResponse) {
-          // Only cache valid same-origin responses
-          if (networkResponse && networkResponse.status === 200 &&
-              networkResponse.type === 'basic') {
-            
-            // Compare with current cache to detect if content changed
-            return cache.match(event.request).then(function (oldCached) {
+        
+        // Define the network fetch operation
+        var networkFetch = fetch(event.request).then(function (networkResponse) {
+          // If the network response is valid, manage cache insertion and updates
+          if (networkResponse && networkResponse.status === 200) {
+            if (networkResponse.type === 'basic') {
+              
+              var oldCachedPromise = cache.match(event.request);
               var responseToCache = networkResponse.clone();
               cache.put(event.request, responseToCache);
 
-              // If there was a previous cached version, check if it changed
-              if (oldCached) {
-                // Read both old and new as text, compare
-                var oldText = oldCached.text();
-                var newText = networkResponse.clone().text();
-                return Promise.all([oldText, newText]).then(function (texts) {
-                  if (texts[0] !== texts[1]) {
-                    // Content changed! Notify all clients to refresh
-                    self.clients.matchAll().then(function (clients) {
-                      clients.forEach(function (client) {
-                        client.postMessage({
-                          type: 'CONTENT_UPDATED',
-                          url: event.request.url
+              oldCachedPromise.then(function (oldCached) {
+                if (oldCached) {
+                  // Compare old and new content to notify clients of updates
+                  Promise.all([
+                    oldCached.clone().text(),
+                    networkResponse.clone().text()
+                  ]).then(function (texts) {
+                    if (texts[0] !== texts[1]) {
+                      self.clients.matchAll().then(function (clients) {
+                        clients.forEach(function (client) {
+                          client.postMessage({
+                            type: 'CONTENT_UPDATED',
+                            url: event.request.url
+                          });
                         });
                       });
-                    });
-                  }
-                });
-              }
-              return null;
-            });
+                    }
+                  }).catch(function (err) {
+                    console.warn('Content comparison skipped:', err);
+                  });
+                }
+              });
+            }
           }
-          return null;
-        }).catch(function () {
-          // Network failed (offline) — that's OK, we have cache
+          // ALWAYS return the actual network response to the browser
+          return networkResponse;
+        }).catch(function (err) {
+          // If network fails and we have no cached copy, throw error naturally
+          if (!cachedResponse) {
+            throw err;
+          }
         });
 
-        // Return cached immediately if available, otherwise wait for network
-        if (cachedResponse) {
-          return cachedResponse;
-        } else {
-          return fetchPromise;
-        }
+        // Return the cached response instantly if available; otherwise, serve from the network
+        return cachedResponse || networkFetch;
       });
     })
   );
