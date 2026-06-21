@@ -10,7 +10,7 @@
 // ======================== 0. Service Worker (Offline Support) ========================
 
 // SW version - increment this when publishing updates to force re-caching
-var _SW_VERSION = '2026-06-21-05';
+var _SW_VERSION = '2026-06-21-06';
 
 (function registerSW() {
     if ('serviceWorker' in navigator) {

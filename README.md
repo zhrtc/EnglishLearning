@@ -12,7 +12,7 @@ EnglishLearning/
 ├── css/
 │   ├── common.css           # 公共样式
 │   └── grammar.css          # 语法页面卡片样式
-├── grammar/                 # 语法与考点专项（19 页）
+├── grammar/                 # 语法与考点专项（22 页）
 │   ├── tenses.html          # 八大时态
 │   ├── passive-voice.html   # 被动语态
 │   ├── articles.html        # 冠词
@@ -31,7 +31,10 @@ EnglishLearning/
 │   ├── sentence-patterns.html   # 特殊句型
 │   ├── subject-verb-agreement.html # 主谓一致
 │   ├── direct-indirect-speech.html # 直接/间接引语
-│   └── writing-connectors.html   # 写作连接词
+│   ├── writing-connectors.html   # 写作连接词
+│   ├── countable-uncountable.html # 🔢 可数与不可数名词
+│   ├── quantifiers.html         # 📊 量词与限定词
+│   └── functional-english.html  # 💬 功能英语·情景交际
 └── vocabulary/              # 词汇分类表（11 页）
     ├── core-vocabulary-p1.html  # 原版核心 P1（核心动词·人物·家庭·学校·食物）
     ├── core-vocabulary-p2.html  # P2（时间·交通·描述·运动·健康·工作）
@@ -91,12 +94,12 @@ EnglishLearning/
 
 ## 🎯 内容覆盖
 
-共 30 个学习页面：
+共 33 个学习页面：
 
 | 类别 | 数量 | 内容 |
 |------|------|------|
 | 📖 词汇分类表 | 11 页 | 约 1,000+ 核心词汇，含音标、变形、释义、例句 |
-| 📚 语法与考点 | 19 页 | 覆盖 KET + 中考全部语法考点 |
+| 📚 语法与考点 | 22 页 | 覆盖 KET + 中考全部语法考点 |
 
 ## 📄 License
 

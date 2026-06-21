@@ -37,7 +37,10 @@ const PRECACHE_URLS = [
   '/grammar/verb-collocations.html', '/grammar/writing-connectors.html',
   '/grammar/articles.html', '/grammar/comparatives.html', '/grammar/pronouns.html',
   '/grammar/numerals.html', '/grammar/questions.html', '/grammar/word-formation.html',
-  '/grammar/conjunctions.html'
+  '/grammar/conjunctions.html',
+  '/grammar/countable-uncountable.html',
+  '/grammar/quantifiers.html',
+  '/grammar/functional-english.html'
 ];
 
 // ======================== Install ========================

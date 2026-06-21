@@ -49,32 +49,48 @@ The Service Worker uses **Stale-While-Revalidate** strategy:
 ## File Structure
 ```
 📁 EnglishLearning/
-├── 📄 index.html              ← Navigation hub
-├── 📄 core-vocabulary.html    ← 6 vocabulary word list files
-├── 📄 verbs-a-l.html
-├── 📄 verbs-m-z.html
-├── 📄 adjectives-adverbs.html
-├── 📄 nouns-life-scene.html
-├── 📄 nouns-society-function.html
-├── 📄 sw.js                   ← Service Worker (offline + update)
+├── 📄 index.html              # 主导航页面（分类入口）
+├── 📄 sw.js                   # Service Worker（离线支持）
+├── 📄 js/common.js            # 公共 JavaScript（SW注册、自测切换、滚动保存、TTS）
 ├── 📁 css/
-│   ├── common.css             ← Shared styles (vocabulary tables)
-│   └── grammar.css            ← Card layout (grammar pages)
-├── 📁 js/
-│   └── common.js              ← TTS / scroll-save / toggle / SW registration
-└── 📁 grammar/                ← 11 grammar topic pages
-    ├── tenses.html
-    ├── passive-voice.html
-    ├── non-finite-verbs.html
-    ├── clauses.html
-    ├── modal-verbs.html
-    ├── sentence-patterns.html
-    ├── verb-collocations.html
-    ├── prepositions.html
-    ├── confusable-words.html
-    ├── subject-verb-agreement.html
-    ├── direct-indirect-speech.html
-    └── writing-connectors.html
+│   ├── common.css             # 公共样式
+│   └── grammar.css            # 语法页面卡片样式
+├── 📁 grammar/                # 语法与考点专项（22 页）
+├── 📁 vocabulary/             # 词汇分类表（11 页）
+│   ├── core-vocabulary-p1.html  # 原版核心 P1（核心动词·人物·家庭·学校·食物）
+│   ├── core-vocabulary-p2.html  # P2（时间·交通·描述·运动·健康·工作）
+│   ├── core-vocabulary-p3.html  # P3（家居·购物·自然·科技·副词·介词）
+│   ├── core-vocabulary-p4.html  # P4（代词·动作·数量·社交·抽象·心理）
+│   ├── core-vocabulary-p5.html  # P5（城镇·日用品·语法词·地理·量词）
+│   ├── core-vocabulary-p6.html  # P6（情感·方位·程度·媒体·连接词）
+│   ├── verbs-a-l.html           # 动词 A-L
+│   ├── verbs-m-z.html           # 动词 M-Z
+│   ├── adjectives-adverbs.html   # 形容词与副词
+│   ├── nouns-life-scene.html    # 生活与场景名词
+│   └── nouns-society-function.html # 社会与功能词
+└── 📁 grammar/                ← 22 grammar topic pages
+    ├── tenses.html              # 八大时态
+    ├── passive-voice.html       # 被动语态
+    ├── articles.html            # 冠词
+    ├── comparatives.html        # 比较级与最高级
+    ├── pronouns.html            # 代词
+    ├── questions.html           # 疑问句
+    ├── numerals.html            # 数词
+    ├── conjunctions.html        # 连词
+    ├── word-formation.html      # 构词法
+    ├── verb-collocations.html   # 动词固定搭配
+    ├── prepositions.html        # 介词
+    ├── confusable-words.html    # 易混词辨析
+    ├── clauses.html             # 三大从句
+    ├── non-finite-verbs.html    # 非谓语动词
+    ├── modal-verbs.html         # 情态动词与虚拟语气
+    ├── sentence-patterns.html   # 特殊句型
+    ├── subject-verb-agreement.html # 主谓一致
+    ├── direct-indirect-speech.html # 直接/间接引语
+    ├── writing-connectors.html  # 写作连接词
+    ├── countable-uncountable.html # 🔢 可数与不可数名词
+    ├── quantifiers.html         # 📊 量词与限定词
+    └── functional-english.html  # 💬 功能英语·情景交际
 ```
 
 ## Common Patterns
