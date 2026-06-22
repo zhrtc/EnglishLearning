@@ -10,7 +10,7 @@
 // ======================== 0. Service Worker (Offline Support) ========================
 
 // SW version - increment this when publishing updates to force re-caching
-var _SW_VERSION = '2026-06-21-06';
+var _SW_VERSION = '2026-06-22-02';
 
 (function registerSW() {
     if ('serviceWorker' in navigator) {
@@ -19,7 +19,9 @@ var _SW_VERSION = '2026-06-21-06';
             ? '../sw.js'
             : (window.location.pathname.indexOf('/vocabulary/') === 0
                 ? '../sw.js'
-                : 'sw.js');
+                : (window.location.pathname.indexOf('/vocabulary2/') === 0
+                    ? '../sw.js'
+                    : 'sw.js'));
 
         // Add version query param for cache busting
         navigator.serviceWorker.register(swPath + '?v=' + _SW_VERSION).then(function (reg) {
